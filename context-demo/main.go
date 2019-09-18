@@ -46,6 +46,8 @@ func main() {
 	r.GET("/test", WithZDMContext(func(c *YuerContext) {
 		// 业务层处理
 		dbQuery(c, "select * from xxx")
+		// 调用gin应答
+		c.Gin.String(200, "请求完成")
 	}))
 
 	r.Run()
