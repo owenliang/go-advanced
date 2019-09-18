@@ -12,9 +12,9 @@ type YuerContext struct {
 	Gin *gin.Context
 }
 
-type ZDMHandleFunc func (c *YuerContext)
+type YuerHandleFunc func (c *YuerContext)
 
-func WithYuerContext(zdmHandle ZDMHandleFunc) gin.HandlerFunc {
+func WithYuerContext(yuerHandle YuerHandleFunc) gin.HandlerFunc {
 	return func (c *gin.Context) {
 		// 可以在gin.Context中设置key-value
 		c.Set("trace", "假设这是一个调用链追踪sdk")
@@ -25,7 +25,7 @@ func WithYuerContext(zdmHandle ZDMHandleFunc) gin.HandlerFunc {
 		yuerCtx := YuerContext{Context: timeoutCtx, Gin: c}
 
 		// 回调接口
-		zdmHandle(&yuerCtx)
+		yuerHandle(&yuerCtx)
 	}
 }
 
