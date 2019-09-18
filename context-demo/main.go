@@ -14,7 +14,7 @@ type YuerContext struct {
 
 type ZDMHandleFunc func (c *YuerContext)
 
-func WithZDMContext(zdmHandle ZDMHandleFunc) gin.HandlerFunc {
+func WithYuerContext(zdmHandle ZDMHandleFunc) gin.HandlerFunc {
 	return func (c *gin.Context) {
 		// 可以在gin.Context中设置key-value
 		c.Set("trace", "假设这是一个调用链追踪sdk")
@@ -43,7 +43,7 @@ func dbQuery(ctx context.Context, sql string) {
 func main() {
 	r := gin.New()
 
-	r.GET("/test", WithZDMContext(func(c *YuerContext) {
+	r.GET("/test", WithYuerContext(func(c *YuerContext) {
 		// 业务层处理
 		dbQuery(c, "select * from xxx")
 		// 调用gin应答
