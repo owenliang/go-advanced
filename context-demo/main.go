@@ -22,10 +22,10 @@ func WithYuerContext(zdmHandle ZDMHandleFunc) gin.HandlerFunc {
 		// 全局超时控制
 		timeoutCtx, _ := context.WithTimeout(c, 5 * time.Second)
 		// ZDM上下文
-		zdmCtx := YuerContext{Context: timeoutCtx, Gin: c}
+		yuerCtx := YuerContext{Context: timeoutCtx, Gin: c}
 
 		// 回调接口
-		zdmHandle(&zdmCtx)
+		zdmHandle(&yuerCtx)
 	}
 }
 
