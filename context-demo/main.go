@@ -24,6 +24,7 @@ func WithYuerContext(yuerHandle YuerHandleFunc) gin.HandlerFunc {
 		// 全局超时控制
 		timeoutCtx, cancelFunc := context.WithTimeout(c, 5 * time.Second)
 		defer cancelFunc()
+
 		// ZDM上下文
 		yuerCtx := YuerContext{Context: timeoutCtx, Gin: c}
 
