@@ -16,11 +16,14 @@ type YuerHandleFunc func (c *YuerContext)
 
 func WithYuerContext(yuerHandle YuerHandleFunc) gin.HandlerFunc {
 	return func (c *gin.Context) {
+		fmt.Println(<- chan struct{}(nil))
+
 		// 可以在gin.Context中设置key-value
 		c.Set("trace", "假设这是一个调用链追踪sdk")
 
 		// 全局超时控制
-		timeoutCtx, _ := context.WithTimeout(c, 5 * time.Second)
+		timeoutCtx, cancelFunc := context.WithTimeout(c, 5 * time.Second)
+		defer cancelFunc()
 		// ZDM上下文
 		yuerCtx := YuerContext{Context: timeoutCtx, Gin: c}
 
